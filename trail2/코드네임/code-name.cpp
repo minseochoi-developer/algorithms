@@ -15,9 +15,10 @@ class Member {
     Member() {};
 };
 
+Member members[5];
+
 int main() {
     // Please write your code here.
-    Member members[5];
     for (int i = 0; i < 5; i++) {
         char code_name;
         int score;
