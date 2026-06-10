@@ -1,47 +1,32 @@
 #include <iostream>
 #include <algorithm>
+#include <cmath>
+#include <utility>
 
-#define MAX_N 1000
+#define MAXN 1000
 
 using namespace std;
 
-class Grid {
-    public:
-        int x, y, num;
-    
-    Grid(int x, int y, int num) {
-        this->x = x;
-        this->y = y;
-        this->num = num;
-    }
-
-    Grid() {}
-};
-
-bool Cmp(Grid a, Grid b) {
-    if (abs(a.x) + abs(a.y) == abs(b.x) + abs(b.y))
-        return a.num < b.num;
-
-    return abs(a.x) + abs(a.y) < abs(b.x) + abs(b.y);
+int GetDistFromOrigin(int x, int y) {
+    return abs(x) + abs(y);
 }
 
-Grid grids[MAX_N];
+pair<int, int> distances[MAXN];
 
-int main() {
-    // Please write your code here.
+int main(){
     int n;
     cin >> n;
-    for (int i = 0; i < n; i++) {
-        int x, y;
-        cin >> x >> y;
-        grids[i] = Grid(x, y, i + 1);
-    }
-
-    sort(grids, grids + n, Cmp);
-
-    for (int i = 0; i < n; i++) {
-        cout << grids[i].num << endl;
-    }
     
+    int x, y;
+    for(int i = 0; i < n; i++) {
+        cin >> x >> y;
+       distances[i] = make_pair(GetDistFromOrigin(x, y), i + 1);
+    }
+
+    sort(distances, distances + n);
+
+    for(int i = 0; i < n; i++)
+        cout << distances[i].second << endl;
+
     return 0;
 }
