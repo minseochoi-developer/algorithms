@@ -43,14 +43,24 @@ int main() {
         }
     }
 
+    if (time_a < time_b) {
+        for (int i = time_a; i < time_b; i++) {
+            robot_a[i] = robot_a[i - 1];
+        }
+    } else if (time_a > time_b) {
+        for (int i = time_b; i < time_a; i++) {
+            robot_b[i] = robot_b[i - 1];
+        }
+    }
+
     int ans = 0;
-    for (int i = 1; i <= MAX_DIS; i++) {
-        if (i >= time_a)
-            robot_a[i] = robot_a[time_a - 1];
-        
-        if (i >= time_b)
-            robot_b[i] = robot_b[time_b - 1];
-        
+    int time_max = 0;
+    if (time_a > time_b)
+        time_max = time_a;
+    else
+        time_max = time_b;
+
+    for (int i = 1; i < time_max; i++) {
         if (robot_a[i] == robot_b[i] && robot_a[i - 1] != robot_b[i - 1])
             ans++;
     }
