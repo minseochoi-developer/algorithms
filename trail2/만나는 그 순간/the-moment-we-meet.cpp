@@ -1,14 +1,17 @@
 #include <iostream>
 
+#define MAX_T 1000000
+
 using namespace std;
+
+int arr_a[MAX_T + 1], arr_b[MAX_T + 1];
 
 int main() {
     // Please write your code here.
     int n, m;
     cin >> n >> m;
-    int arr_a[1000000], arr_b[1000000];
 
-    int dist = 0, idx = 1;
+    int idx = 1;
     for (int i = 0; i < n; i++) {
         char d;
         int t;
@@ -16,15 +19,15 @@ int main() {
 
         for (int time = 0; time < t; time++) {
             if (d == 'L')
-                dist--;
+                arr_a[idx] = arr_a[idx - 1] - 1;
             else
-                dist++;
+                arr_a[idx] = arr_a[idx - 1] + 1;
 
-            arr_a[idx++] = dist;
+            idx++;
         }
     }
 
-    dist = 0, idx = 1;
+    idx = 1;
     for (int i = 0; i < m; i++) {
         char d;
         int t;
@@ -32,11 +35,11 @@ int main() {
 
         for (int time = 0; time < t; time++) {
             if (d == 'L')
-                dist--;
+                arr_b[idx] = arr_b[idx - 1] - 1;
             else
-                dist++;
+                arr_b[idx] = arr_b[idx - 1] + 1;
 
-            arr_b[idx++] = dist;
+            idx++;
         }
     }
 
