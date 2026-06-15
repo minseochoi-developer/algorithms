@@ -35,14 +35,22 @@ int main() {
         }
     }
 
-    int ans = 0;
+    int ans = 0, leader = 0;
     for (int t = 1; t < time_a; t++) {
-        if (pos_a[t - 1] >= pos_b[t - 1] && pos_a[t] < pos_b[t])
-            ans++;
-        else if (pos_b[t - 1] >= pos_a[t - 1] && pos_b[t] < pos_a[t])
-            ans++;
+        if(pos_a[t] > pos_b[t]) {
+            if(leader == 2)
+                ans++;
+            
+            leader = 1; 
+        }
+        else if(pos_a[t] < pos_b[t]) {
+            if(leader == 1)
+                ans++;
+            
+            leader = 2; 
+        }
     }
 
-    cout << ans - 1 << endl;
+    cout << ans << endl;
     return 0;
 }
