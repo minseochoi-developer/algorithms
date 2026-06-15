@@ -1,54 +1,70 @@
 #include <iostream>
+#include <algorithm>
 
 #define MAX_N 100
 #define MAX_T 250
+
 using namespace std;
 
 int N, K, P, T;
-int disease[MAX_N + 1], rest[MAX_N + 1];
-int x_dev[MAX_T + 1], y_dev[MAX_T + 1]; 
+int shake_num[MAX_N + 1];
+bool infected[MAX_N + 1];
+
+class Shake {
+    public:
+        int time;
+        int person1;
+        int person2;
+        
+        Shake(int time, int person1, int person2) {
+            this->time = time;
+            this->person1 = person1;
+            this->person2 = person2;
+        }
+        Shake(){}
+};
+
+bool Cmp(const Shake &a, const Shake &b) {
+    return a.time < b.time;
+}
 
 int main() {
-    // Please write your code here.
     cin >> N >> K >> P >> T;
 
-    disease[P] = 1;
-    rest[P] = K;
+    // Please write your code here.
+    infected[P] = true;
+    Shake shakes[MAX_T];
 
-    int ans = 1;
     for (int i = 0; i < T; i++) {
-        int t, x, y;
-        cin >> t >> x >> y;
-
-        x_dev[t] = x;
-        y_dev[t] = y;
+        int time, person1, person2;
+        cin >> time >> person1 >> person2;
+        shakes[i] = Shake(time, person1, person2);
     }
 
-    for (int i = 1; i <= MAX_T; i++) {
-        if (disease[x_dev[i]]) {
-            if (disease[y_dev[i]]) {
-                rest[x_dev[i]]--;
-                rest[y_dev[i]]--;
-            } else {
-                if (rest[x_dev[i]] > 0) {
-                    disease[y_dev[i]] = 1;
-                    rest[y_dev[i]] = K;
-                    rest[x_dev[i]]--;
-                }
-            }
-        } else {
-            if (disease[y_dev[i]]) {
-                if (rest[y_dev[i]] > 0) {
-                    disease[x_dev[i]] = 1;
-                    rest[x_dev[i]] = K;
-                    rest[y_dev[i]]--;
-                }
-            }
-        }
+    sort(shakes, shakes + T, Cmp);
+
+    for (int i = 0; i < T; i++) {
+        int target1 = shakes[i].person1;
+        int target2 = shakes[i].person2;
+
+        if (infected[target1])
+            shake_num[target1]++;
+        if (infected[target2])
+            shake_num[target2]++;
+        
+        if (shake_num[target1] <= K && infected[target1])
+            infected[target2] = true;
+        
+        if (shake_num[target2] <= K && infected[target2])
+            infected[target1] = true;
     }
 
-    for (int i = 0; i < N; i++) {
-        cout << disease[i + 1];
+    for (int i = 1; i <= N; i++) {
+        if (infected[i])
+            cout << 1;
+        else
+            cout << 0;
     }
+
     return 0;
 }
