@@ -17,12 +17,12 @@ int main() {
     for (int i = 0; i < n; i++) {
         if ((arr[i] > 0 && arr[i - 1] > 0) || (arr[i] < 0 && arr[i - 1] < 0))
             cnt++;
-        else {
-            max_cnt = max(max_cnt, cnt);
+        else
             cnt = 1;
-        }
+        
+        max_cnt = max(max_cnt, cnt);
     }
-    max_cnt = max(max_cnt, cnt);
+    
     cout << max_cnt << endl;
 
     return 0;
