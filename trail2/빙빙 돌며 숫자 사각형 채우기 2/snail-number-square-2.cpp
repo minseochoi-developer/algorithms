@@ -8,10 +8,6 @@ int n, m;
 int grid[MAX_R][MAX_R];
 int x, y, dir_num;
 
-bool IsFill(int x, int y) {
-    return (grid[x][y] != 0);
-}
-
 bool InRange(int x, int y) {
     return x >= 0 && x < n && y >= 0 && y < m;
 }
@@ -20,7 +16,7 @@ void Simulate() {
     int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
     int nx = x + dx[dir_num], ny = y + dy[dir_num];
 
-    if (!InRange(nx, ny) || IsFill(nx, ny))
+    if (!InRange(nx, ny) || grid[nx][ny] != 0)
         dir_num = (dir_num + 1) % 4;
     
     x = x + dx[dir_num], y = y + dy[dir_num];
