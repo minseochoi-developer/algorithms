@@ -13,8 +13,7 @@ int main() {
     int ans = INT_MIN;
 
     for (int i = 0; i < a.size(); i++) {
-        if (a[i] == '0') a[i] = '1';
-        else             a[i] = '0';
+        a[i] = '0' + '1' - a[i];
 
         int num = 0;
         for (int j = 0; j < a.size(); j++) {
@@ -23,8 +22,7 @@ int main() {
 
         ans = max(ans, num);
 
-        if (a[i] == '0') a[i] = '1';
-        else             a[i] = '0';
+        a[i] = '0' + '1' - a[i];
     }
 
     cout << ans << endl;
