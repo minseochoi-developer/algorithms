@@ -16,16 +16,14 @@ int main() {
     // Please write your code here.
     int ans = 0;
 
-    if (grid[0][0] == grid[R - 1][C - 1]) {
-        ans = 0;
-    } else {
-        for (int i = 1; i < R - 1; i++) {
-            for (int j = 1; j < C - 1; j++) {
-                for (int k = i + 1; k < R - 1; k++) {
-                    for (int l = j + 1; l < C - 1; l++) {
-                        if (grid[0][0] == grid[k][l] && grid[R-1][C-1] == grid[i][j])
+    for (int i = 1; i < R - 1; i++) {
+        for (int j = 1; j < C - 1; j++) {
+            for (int k = i + 1; k < R - 1; k++) {
+                for (int l = j + 1; l < C - 1; l++) {
+                    if (grid[0][0] != grid[i][j] && 
+                        grid[i][j] != grid[k][l] &&
+                        grid[k][l] != grid[R-1][C-1])
                             ans++;
-                    }
                 }
             }
         }
