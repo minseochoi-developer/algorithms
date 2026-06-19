@@ -15,10 +15,7 @@ int main() {
     // Please write your code here.
     int max_sum = 0;
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (j == i - 1 || j == i + 1 || j == i)
-                continue;
-
+        for (int j = i + 2; j < n; j++) {
             max_sum = max(max_sum, numbers[i] + numbers[j]);
         }
     }
