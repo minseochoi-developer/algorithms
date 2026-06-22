@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <cstdlib>
 
 using namespace std;
 
@@ -17,8 +18,7 @@ int main() {
         for (int j = 0; j < N - 2; j++) {
             for (int k = 0; k < N; k++) {
                 for (int l = 0; l < N - 2; l++) {
-                    if (k < i || l < j) continue;
-                    if (k == i && l >= j && l <= j + 2) continue;
+                    if (i == k && abs(j - l) <= 2) continue;
                     int coin = 0;
                     coin = arr[i][j] + arr[i][j + 1] + arr[i][j + 2];
                     coin += arr[k][l] + arr[k][l + 1] + arr[k][l + 2];
