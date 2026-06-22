@@ -14,15 +14,15 @@ int main() {
         cin >> arr[i];
     }
 
+    int array_sum = 0;
+    for (int i = 0; i < n; i++)
+        array_sum += arr[i];
+
     int ans = INT_MAX;
     for (int i = 0; i < n - 1; i++) {
         for (int j = i + 1; j < n; j++) {
-            int sum = 0;
-            for (int k = 0; k < n; k++) {
-                if (k == i || k == j) continue;
-                sum += arr[k];
-            }
-            ans = min(ans, abs(sum - s));
+            int new_sum = array_sum - arr[i] - arr[j];
+            ans = min(ans, abs(new_sum - s));
         }
     }
 
