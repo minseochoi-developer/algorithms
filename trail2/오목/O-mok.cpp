@@ -1,44 +1,16 @@
 #include <iostream>
 
+#define DIR_NUM 8
+
 using namespace std;
 
 int board[19][19];
-int win_row, win_col, is_win;
 
-bool InRange(int row, int col) {
-    return row >= 0 && row < 19 && col >= 0 && col < 19;
-}
+int dx[DIR_NUM] = {1, 1, 1, -1, -1, -1, 0, 0};
+int dy[DIR_NUM] = {0, 1, -1, 0, 1, -1, 1, -1};
 
-bool IsWidth (int row, int col) {
-    for (int i = 1; i < 5; i++) {
-        if (!InRange(row, col + i) || board[row][col + i - 1] != board[row][col + i])
-            return false;
-    }
-    return true;
-}
-
-bool IsHeight (int row, int col) {
-    for (int i = 1; i < 5; i++) {
-        if (!InRange(row + i, col) || board[row + i - 1][col] != board[row + i][col])
-            return false;
-    }
-    return true;
-}
-
-bool IsCross (int row, int col) {
-    for (int i = 1; i < 5; i++) {
-        if (!InRange(row + i, col + i) || board[row + i - 1][col + i - 1] != board[row + i][col + i])
-            return false;
-    }
-    return true;
-}
-
-bool IsCrossReverse (int row, int col) {
-    for (int i = 1; i < 5; i++) {
-        if (!InRange(row + i, col - i) || board[row + i - 1][col - i + 1] != board[row + i][col - i])
-            return false;
-    }
-    return true;
+bool InRange(int x, int y) {
+    return 0 <= x && x < 19 && 0 <= y && y < 19;
 }
 
 int main() {
@@ -48,40 +20,32 @@ int main() {
     // Please write your code here.
     for (int i = 0; i < 19; i++) {
         for (int j = 0; j < 19; j++) {
-            if (board[i][j] != 0) {
-                if (IsWidth(i, j)) {
-                    win_row = i + 1;
-                    win_col = j + 3;
-                    is_win = board[i][j];
-                    break;
+            if (board[i][j] == 0)   continue;
+
+            for (int k = 0; k < DIR_NUM; k++) {
+                int curt = 1;
+                int curx = i;
+                int cury = j;
+                while(true) {
+                    int nx = curx + dx[k];
+                    int ny = cury + dy[k];
+                    if(!InRange(nx, ny))
+                        break;
+                    if (board[nx][ny] != board[i][j])
+                        break;
+                    curt++;
+                    curx = nx;
+                    cury = ny;
                 }
-                if (IsHeight(i, j)) {
-                    win_row = i + 3;
-                    win_col = j + 1;
-                    is_win = board[i][j];
-                    break;
-                }
-                if (IsCross(i, j)) {
-                    win_row = i + 3;
-                    win_col = j + 3;
-                    is_win = board[i][j];
-                    break;
-                }
-                if (IsCrossReverse(i, j)) {
-                    win_row = i + 3;
-                    win_col = j - 1;
-                    is_win = board[i][j];
-                    break;
+                if (curt == 5) {
+                    cout << board[i][j] << endl;
+                    cout << i + 2 * dx[k] + 1 << " " << j + 2 * dy[k] + 1;
+                    return 0;
                 }
             }
         }
-        if (is_win != 0)
-            break;
     }
 
-    cout << is_win << endl;
-    if (is_win != 0)
-        cout << win_row << " " << win_col << endl;
-
+    cout << 0;
     return 0;
 }
