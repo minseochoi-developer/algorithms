@@ -32,9 +32,7 @@ int main() {
                 else if (arr[k] == 'H') cnt_h++;
             }
 
-            if (cnt_g != 0 && cnt_g == cnt_h)
-                ans = max(ans, j - i);
-            else if (cnt_g == 0 && cnt_h != 0 || cnt_g != 0 && cnt_h == 0)
+            if (cnt_g == 0 || cnt_h == 0 || cnt_g == cnt_h)
                 ans = max(ans, j - i);
         }
     }
