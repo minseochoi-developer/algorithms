@@ -15,12 +15,11 @@ int GetDiff(int a1, int a2, int b1, int b2) {
     }
     sum3 = sum3 - sum1 - sum2;
 
-    int max_sum = max(sum1, sum2);
-    int min_sum = min(sum1, sum2);
-    max_sum = max(max_sum, sum3);
-    min_sum = min(min_sum, sum3);
+    int ret = abs(sum1 - sum2);
+    ret = max(ret, abs(sum2 - sum3));
+    ret = max(ret, abs(sum3 - sum1));
 
-    return max_sum - min_sum;
+    return ret;
 }
 
 int main() {
