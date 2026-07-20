@@ -20,9 +20,7 @@ int main() {
 
         int cnt = 0;
         for (int j = 0; j < n; j++) {
-            bool temp = stone[a[j]];
-            stone[a[j]] = stone[b[j]];
-            stone[b[j]] = temp;
+            swap(stone[a[j]], stone[b[j]]);
 
             if (stone[c[j]])
                 cnt++;
