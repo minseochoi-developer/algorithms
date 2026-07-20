@@ -10,14 +10,13 @@ int main() {
     cin >> a >> b >> c;
 
     int ans = 0;
-    for (int i = 0; i <= 1000; i++) {
-        for (int j = 0; j <= 1000; j++) {
-            int sum = (a * i) + (b * j);
-            if (sum <= c)
-                ans = max(ans, sum);
-            else
-                break;
-        }
+    for (int i = 0; i * a <= c; i++) {
+        int sum = a * i;
+        int j = (c - sum) / b;
+
+        sum += b * j;
+
+        ans = max(ans, sum);
     }
 
     cout << ans << endl;
